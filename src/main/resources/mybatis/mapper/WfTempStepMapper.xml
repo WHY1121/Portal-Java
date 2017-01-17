@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.t2cloud.workflow.mapper.WfTempStepMapper" >
+  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.WfTempStep" >
+    <id column="step_id" property="stepId" jdbcType="BIGINT" />
+    <result column="temp_id" property="tempId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="step_type" property="stepType" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="INTEGER" />
+    <result column="super_id" property="superId" jdbcType="BIGINT" />
+    <result column="next_id" property="nextId" jdbcType="BIGINT" />
+    <result column="is_last" property="isLast" jdbcType="INTEGER" />
+    <result column="deadline" property="deadline" jdbcType="BIGINT" />
+    <result column="isaudit" property="isaudit" jdbcType="INTEGER" />
+    <result column="isauto" property="isauto" jdbcType="INTEGER" />
+    <result column="rebut" property="rebut" jdbcType="INTEGER" />
+    <result column="rebut_flag" property="rebutFlag" jdbcType="INTEGER" />
+    <result column="extend_1" property="extend1" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    step_id, temp_id, name, type, step_type, order_no, super_id, next_id, is_last, deadline, 
+    isaudit, isauto, rebut, rebut_flag, extend_1
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wf_temp_step
+    where step_id = #{stepId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wf_temp_step
+    where step_id = #{stepId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="stepId" parameterType="com.t2cloud.workflow.pojo.WfTempStep" >
+    insert into wf_temp_step (step_id, temp_id, name, 
+      type, step_type, order_no, 
+      super_id, next_id, is_last, 
+      deadline, isaudit, isauto, 
+      rebut, rebut_flag, extend_1
+      )
+    values (#{stepId,jdbcType=BIGINT}, #{tempId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{stepType,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER}, 
+      #{superId,jdbcType=BIGINT}, #{nextId,jdbcType=BIGINT}, #{isLast,jdbcType=INTEGER}, 
+      #{deadline,jdbcType=BIGINT}, #{isaudit,jdbcType=INTEGER}, #{isauto,jdbcType=INTEGER}, 
+      #{rebut,jdbcType=INTEGER}, #{rebutFlag,jdbcType=INTEGER}, #{extend1,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="stepId" parameterType="com.t2cloud.workflow.pojo.WfTempStep" >
+    insert into wf_temp_step
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stepId != null" >
+        step_id,
+      </if>
+      <if test="tempId != null" >
+        temp_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="stepType != null" >
+        step_type,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="superId != null" >
+        super_id,
+      </if>
+      <if test="nextId != null" >
+        next_id,
+      </if>
+      <if test="isLast != null" >
+        is_last,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="isaudit != null" >
+        isaudit,
+      </if>
+      <if test="isauto != null" >
+        isauto,
+      </if>
+      <if test="rebut != null" >
+        rebut,
+      </if>
+      <if test="rebutFlag != null" >
+        rebut_flag,
+      </if>
+      <if test="extend1 != null" >
+        extend_1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stepId != null" >
+        #{stepId,jdbcType=BIGINT},
+      </if>
+      <if test="tempId != null" >
+        #{tempId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="stepType != null" >
+        #{stepType,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="superId != null" >
+        #{superId,jdbcType=BIGINT},
+      </if>
+      <if test="nextId != null" >
+        #{nextId,jdbcType=BIGINT},
+      </if>
+      <if test="isLast != null" >
+        #{isLast,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=BIGINT},
+      </if>
+      <if test="isaudit != null" >
+        #{isaudit,jdbcType=INTEGER},
+      </if>
+      <if test="isauto != null" >
+        #{isauto,jdbcType=INTEGER},
+      </if>
+      <if test="rebut != null" >
+        #{rebut,jdbcType=INTEGER},
+      </if>
+      <if test="rebutFlag != null" >
+        #{rebutFlag,jdbcType=INTEGER},
+      </if>
+      <if test="extend1 != null" >
+        #{extend1,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.WfTempStep" >
+    update wf_temp_step
+    <set >
+      <if test="tempId != null" >
+        temp_id = #{tempId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="stepType != null" >
+        step_type = #{stepType,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="superId != null" >
+        super_id = #{superId,jdbcType=BIGINT},
+      </if>
+      <if test="nextId != null" >
+        next_id = #{nextId,jdbcType=BIGINT},
+      </if>
+      <if test="isLast != null" >
+        is_last = #{isLast,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=BIGINT},
+      </if>
+      <if test="isaudit != null" >
+        isaudit = #{isaudit,jdbcType=INTEGER},
+      </if>
+      <if test="isauto != null" >
+        isauto = #{isauto,jdbcType=INTEGER},
+      </if>
+      <if test="rebut != null" >
+        rebut = #{rebut,jdbcType=INTEGER},
+      </if>
+      <if test="rebutFlag != null" >
+        rebut_flag = #{rebutFlag,jdbcType=INTEGER},
+      </if>
+      <if test="extend1 != null" >
+        extend_1 = #{extend1,jdbcType=BIGINT},
+      </if>
+    </set>
+    where step_id = #{stepId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.WfTempStep" >
+    update wf_temp_step
+    set temp_id = #{tempId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      step_type = #{stepType,jdbcType=INTEGER},
+      order_no = #{orderNo,jdbcType=INTEGER},
+      super_id = #{superId,jdbcType=BIGINT},
+      next_id = #{nextId,jdbcType=BIGINT},
+      is_last = #{isLast,jdbcType=INTEGER},
+      deadline = #{deadline,jdbcType=BIGINT},
+      isaudit = #{isaudit,jdbcType=INTEGER},
+      isauto = #{isauto,jdbcType=INTEGER},
+      rebut = #{rebut,jdbcType=INTEGER},
+      rebut_flag = #{rebutFlag,jdbcType=INTEGER},
+      extend_1 = #{extend1,jdbcType=BIGINT}
+    where step_id = #{stepId,jdbcType=BIGINT}
+  </update>
+</mapper>

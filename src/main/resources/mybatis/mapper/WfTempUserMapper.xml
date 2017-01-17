@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.t2cloud.workflow.mapper.WfTempUserMapper" >
+  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.WfTempUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="step_id" property="stepId" jdbcType="BIGINT" />
+    <result column="handler_id" property="handlerId" jdbcType="VARCHAR" />
+    <result column="handler_name" property="handlerName" jdbcType="VARCHAR" />
+    <result column="handle_role" property="handleRole" jdbcType="BIGINT" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, step_id, handler_id, handler_name, handle_role, other
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wf_temp_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wf_temp_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.workflow.pojo.WfTempUser" >
+    insert into wf_temp_user (id, step_id, handler_id,
+      handler_name, handle_role, other
+      )
+    values (#{id,jdbcType=BIGINT}, #{stepId,jdbcType=BIGINT}, #{handlerId,jdbcType=VARCHAR},
+      #{handlerName,jdbcType=VARCHAR}, #{handleRole,jdbcType=BIGINT}, #{other,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.workflow.pojo.WfTempUser" >
+    insert into wf_temp_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stepId != null" >
+        step_id,
+      </if>
+      <if test="handlerId != null" >
+        handler_id,
+      </if>
+      <if test="handlerName != null" >
+        handler_name,
+      </if>
+      <if test="handleRole != null" >
+        handle_role,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="stepId != null" >
+        #{stepId,jdbcType=BIGINT},
+      </if>
+      <if test="handlerId != null" >
+        #{handlerId,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerName != null" >
+        #{handlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleRole != null" >
+        #{handleRole,jdbcType=BIGINT},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.WfTempUser" >
+    update wf_temp_user
+    <set >
+      <if test="stepId != null" >
+        step_id = #{stepId,jdbcType=BIGINT},
+      </if>
+      <if test="handlerId != null" >
+        handler_id = #{handlerId,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerName != null" >
+        handler_name = #{handlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleRole != null" >
+        handle_role = #{handleRole,jdbcType=BIGINT},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.WfTempUser" >
+    update wf_temp_user
+    set step_id = #{stepId,jdbcType=BIGINT},
+      handler_id = #{handlerId,jdbcType=VARCHAR},
+      handler_name = #{handlerName,jdbcType=VARCHAR},
+      handle_role = #{handleRole,jdbcType=BIGINT},
+      other = #{other,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.t2cloud.workflow.mapper.PortalUserMapper" >
+  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.PortalUser" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="domain_id" property="domainId" jdbcType="BIGINT" />
+    <result column="enabled" property="enabled" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, department_id, role_id, name, email, domain_id, enabled, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from portal_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from portal_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+    insert into portal_user (user_id, department_id, role_id, 
+      name, email, domain_id, 
+      enabled, description)
+    values (#{userId,jdbcType=VARCHAR}, #{departmentId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{domainId,jdbcType=BIGINT}, 
+      #{enabled,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+    insert into portal_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="domainId != null" >
+        domain_id,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="domainId != null" >
+        #{domainId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+    update portal_user
+    <set >
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="domainId != null" >
+        domain_id = #{domainId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+    update portal_user
+    set department_id = #{departmentId,jdbcType=BIGINT},
+      role_id = #{roleId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      domain_id = #{domainId,jdbcType=BIGINT},
+      enabled = #{enabled,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>
