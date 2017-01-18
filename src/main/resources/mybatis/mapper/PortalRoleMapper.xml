@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.t2cloud.workflow.mapper.PortalRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.PortalRole" >
+<mapper namespace="com.t2cloud.mapper.PortalRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.t2cloud.pojo.PortalRole" >
     <id column="role_id" property="roleId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="descrip" property="descrip" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     delete from portal_role
     where role_id = #{roleId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.t2cloud.workflow.pojo.PortalRole" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.t2cloud.pojo.PortalRole" >
     insert into portal_role (role_id, name, descrip, 
       create_time, update_time, role_type
       )
@@ -30,7 +30,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{roleType,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.t2cloud.workflow.pojo.PortalRole" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.t2cloud.pojo.PortalRole" >
     insert into portal_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="roleId != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.PortalRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.pojo.PortalRole" >
     update portal_role
     <set >
       <if test="name != null" >
@@ -94,7 +94,7 @@
     </set>
     where role_id = #{roleId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.PortalRole" >
+  <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.PortalRole" >
     update portal_role
     set name = #{name,jdbcType=VARCHAR},
       descrip = #{descrip,jdbcType=VARCHAR},

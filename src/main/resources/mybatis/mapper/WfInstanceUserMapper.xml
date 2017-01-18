@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.t2cloud.workflow.mapper.WfInstanceUserMapper" >
-  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.WfInstanceUser" >
+<mapper namespace="com.t2cloud.mapper.WfInstanceUserMapper" >
+  <resultMap id="BaseResultMap" type="com.t2cloud.pojo.WfInstanceUser" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="step_id" property="stepId" jdbcType="BIGINT" />
     <result column="result" property="result" jdbcType="INTEGER" />
@@ -24,7 +24,7 @@
     delete from wf_instance_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.workflow.pojo.WfInstanceUser" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.pojo.WfInstanceUser" >
     insert into wf_instance_user (id, step_id, result, 
       suggestion, handle_time, handler_id, 
       handler_name, level)
@@ -32,7 +32,7 @@
       #{suggestion,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, #{handlerId,jdbcType=VARCHAR}, 
       #{handlerName,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.workflow.pojo.WfInstanceUser" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.pojo.WfInstanceUser" >
     insert into wf_instance_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective"  parameterType="com.t2cloud.workflow.pojo.WfInstanceUser" >
+  <update id="updateByPrimaryKeySelective"  parameterType="com.t2cloud.pojo.WfInstanceUser" >
     update wf_instance_user
     <set >
       <if test="stepId != null" >
@@ -114,7 +114,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.WfInstanceUser" >
+  <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.WfInstanceUser" >
     update wf_instance_user
     set step_id = #{stepId,jdbcType=BIGINT},
       result = #{result,jdbcType=INTEGER},

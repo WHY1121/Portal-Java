@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.t2cloud.workflow.mapper.PortalUserMapper" >
-  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.PortalUser" >
+<mapper namespace="com.t2cloud.mapper.PortalUserMapper" >
+  <resultMap id="BaseResultMap" type="com.t2cloud.pojo.PortalUser" >
     <id column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="department_id" property="departmentId" jdbcType="BIGINT" />
     <result column="role_id" property="roleId" jdbcType="BIGINT" />
@@ -24,7 +24,7 @@
     delete from portal_user
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+  <insert id="insert" parameterType="com.t2cloud.pojo.PortalUser" >
     insert into portal_user (user_id, department_id, role_id, 
       name, email, domain_id, 
       enabled, description)
@@ -32,7 +32,7 @@
       #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{domainId,jdbcType=BIGINT}, 
       #{enabled,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+  <insert id="insertSelective" parameterType="com.t2cloud.pojo.PortalUser" >
     insert into portal_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.pojo.PortalUser" >
     update portal_user
     <set >
       <if test="departmentId != null" >
@@ -114,7 +114,7 @@
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.PortalUser" >
+  <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.PortalUser" >
     update portal_user
     set department_id = #{departmentId,jdbcType=BIGINT},
       role_id = #{roleId,jdbcType=BIGINT},

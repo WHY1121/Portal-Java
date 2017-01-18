@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.t2cloud.workflow.mapper.WfInstanceStepMapper">
-    <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.WfInstanceStep">
+<mapper namespace="com.t2cloud.mapper.WfInstanceStepMapper">
+    <resultMap id="BaseResultMap" type="com.t2cloud.pojo.WfInstanceStep">
         <id column="step_id" property="stepId" jdbcType="BIGINT"/>
         <result column="instance_id" property="instanceId" jdbcType="BIGINT"/>
         <result column="step_name" property="stepName" jdbcType="VARCHAR"/>
@@ -33,7 +33,7 @@
     where step_id = #{stepId,jdbcType=BIGINT}
   </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="stepId"
-            parameterType="com.t2cloud.workflow.pojo.WfInstanceStep">
+            parameterType="com.t2cloud.pojo.WfInstanceStep">
     insert into wf_instance_step (step_id, instance_id, step_name, 
       type, order_no, step_type, 
       is_last, status, super_id, 
@@ -48,7 +48,7 @@
       )
   </insert>
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="stepId"
-            parameterType="com.t2cloud.workflow.pojo.WfInstanceStep">
+            parameterType="com.t2cloud.pojo.WfInstanceStep">
         insert into wf_instance_step
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="stepId != null">
@@ -145,7 +145,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.WfInstanceStep">
+    <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.pojo.WfInstanceStep">
         update wf_instance_step
         <set>
             <if test="instanceId != null">
@@ -193,7 +193,7 @@
         </set>
         where step_id = #{stepId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.WfInstanceStep">
+    <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.WfInstanceStep">
     update wf_instance_step
     set instance_id = #{instanceId,jdbcType=BIGINT},
       step_name = #{stepName,jdbcType=VARCHAR},

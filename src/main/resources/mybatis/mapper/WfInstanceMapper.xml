@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.t2cloud.workflow.mapper.WfInstanceMapper" >
-  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.WfInstance" >
+<mapper namespace="com.t2cloud.mapper.WfInstanceMapper" >
+  <resultMap id="BaseResultMap" type="com.t2cloud.pojo.WfInstance" >
     <id column="instance_id" property="instanceId" jdbcType="BIGINT" />
     <result column="temp_id" property="tempId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -31,7 +31,7 @@
     delete from wf_instance
     where instance_id = #{instanceId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="instanceId" parameterType="com.t2cloud.workflow.pojo.WfInstance" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="instanceId" parameterType="com.t2cloud.pojo.WfInstance" >
     insert into wf_instance (instance_id,temp_id, name, create_id,
       create_name, create_timestamp, modify_timestamp, 
       modify_name, modify_id, status, 
@@ -43,7 +43,7 @@
       #{businessType,jdbcType=INTEGER}, #{businessStatus,jdbcType=INTEGER}, #{urgent,jdbcType=INTEGER}, 
       #{urgentFunc,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="instanceId" parameterType="com.t2cloud.workflow.pojo.WfInstance" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="instanceId" parameterType="com.t2cloud.pojo.WfInstance" >
     insert into wf_instance
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="instanceId != null" >
@@ -134,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.WfInstance" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.pojo.WfInstance" >
     update wf_instance
     <set >
       <if test="tempId != null" >
@@ -179,7 +179,7 @@
     </set>
     where instance_id = #{instanceId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.WfInstance" >
+  <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.WfInstance" >
     update wf_instance
     set
       temp_id=#{tempId,jdbcType=BIGINT}
