@@ -53,25 +53,36 @@ public class WorkflowInstanceServiceImpl implements WorkflowInstanceService {
         wfInstanceMapper.insert(wfInstanc);
 
         //no.4自动开启流程(第一步)
-        Map<String,Object> map= Maps.newHashMap();
-        map.put("tempId",wfInstanc.getTempId());
-        map.put("orderNo",WorkFlowConstance.STEP);
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("tempId", wfInstanc.getTempId());
+        map.put("orderNo", WorkFlowConstance.STEP + 1);
         WfTempStep wfTempStep = wfTempStepMapper.selectByTempId(map);
+        WfInstanceStep wfInstanceStep = new WfInstanceStep();
+        //设置步骤信息
+        wfInstanceStep.setInstanceId(wfInstanc.getInstanceId());
+        wfInstanceStep.setStepName(wfTempStep.getName());
+        wfInstanceStep.setType(wfTempStep.getType());
+        wfInstanceStep.setOrderNo(wfTempStep.getOrderNo());
+        wfInstanceStep.setStepType(wfTempStep.getStepType());
 
 
-        WfInstanceStep wfInstanceStep=new WfInstanceStep();
+
+
+
+
+
+
+
+
+
+
+
+
+        wfInstanceStep.setBeginTime(new Date());
+        //TODO 上下节点
+
+        //设置流程审批人
         wfInstanceStepMapper.insert(wfInstanceStep);
-
-    }
-
-    /**
-     * 修改审批
-     */
-    @Override
-    public void updateWorkFlowProcess() {
-
-        //
-
 
     }
 
@@ -97,6 +108,19 @@ public class WorkflowInstanceServiceImpl implements WorkflowInstanceService {
      */
     @Override
     public void finishWorkFlowProcess() {
+
+    }
+
+    /**
+     * 修改审批
+     */
+    @Override
+    public void updateWorkFlowProcess() {
+
+        //判断流程状态    为待审批
+
+
+        //
 
     }
 
