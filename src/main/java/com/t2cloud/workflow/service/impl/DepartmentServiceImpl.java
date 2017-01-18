@@ -1,13 +1,16 @@
 package com.t2cloud.workflow.service.impl;
 
+import com.google.common.collect.Maps;
 import com.t2cloud.workflow.mapper.PortalDepartmentMapper;
+import com.t2cloud.workflow.mapper.PortalUserMapper;
 import com.t2cloud.workflow.pojo.PortalDepartment;
 import com.t2cloud.workflow.service.DepartmentService;
+import com.t2cloud.workflow.vo.DepartmentMember;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,33 +20,43 @@ import java.util.List;
  * 组织机构service
  */
 @Service
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
 
-@Resource
-private PortalDepartmentMapper portalDepartmentMapper;
+    @Resource
+    private PortalDepartmentMapper portalDepartmentMapper;
+    @Resource
+    private PortalUserMapper portalUserMapper;
+
     @Override
     public List<PortalDepartment> list() {
-        //TODO 查询出所有部门总数
         //no.1查询所有top节点
         List<PortalDepartment> topList = portalDepartmentMapper.findTopList();
-        List<PortalDepartment> list=new ArrayList<>();
-        getAllDepartment(topList,list);
-        return list;
+        getAllDepartment(topList);
+        return topList;
     }
 
 
     //递归查询所有部门
-    public void getAllDepartment(List<PortalDepartment> topList,List<PortalDepartment> list){
+    public void getAllDepartment(List<PortalDepartment> topList) {
         //no.2查询所有top下的子节点
-        if(null!=topList && topList.size()>0){
-            for(PortalDepartment department:topList){
-                department.setName(department.getName());
-                list.add(department);
-                List<PortalDepartment> allChildren = portalDepartmentMapper.findAllChildren(department.getDepartmentId());
-                getAllDepartment(allChildren,list);
+        if (null != topList && topList.size() > 0) {
+            List<PortalDepartment> allChildren = null;
+            Map<String, Object> maps = null;
+            for (PortalDepartment department : topList) {
+                department.setRoot(department.getIsTop() == 1 ? true : false);
+                maps = Maps.newHashMap();
+                maps.put("departmentId", department.getDepartmentId());
+                department.setMemberCount(portalUserMapper.selectCount(maps));
+                allChildren = portalDepartmentMapper.findAllChildren(department.getDepartmentId());
+                if (null != allChildren && allChildren.size() > 0) {
+                    department.setChildren(allChildren);
+                }
+                getAllDepartment(allChildren);
             }
+
         }
     }
+
     @Override
     public void insert(PortalDepartment portalDepartment) {
         portalDepartmentMapper.insert(portalDepartment);
@@ -57,5 +70,17 @@ private PortalDepartmentMapper portalDepartmentMapper;
     @Override
     public void update(PortalDepartment portalDepartment) {
         portalDepartmentMapper.updateByPrimaryKeySelective(portalDepartment);
+    }
+
+    /**
+     * 获取单个部门下的成员
+     *
+     * @param departmentId
+     * @return
+     */
+    @Override
+    public List<DepartmentMember> allMembers(Long departmentId) {
+        List<DepartmentMember> list = portalDepartmentMapper.selectMembersByDepartMentId(departmentId);
+        return list;
     }
 }

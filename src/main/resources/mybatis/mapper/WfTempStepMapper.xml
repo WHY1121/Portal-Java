@@ -209,4 +209,9 @@
       extend_1 = #{extend1,jdbcType=BIGINT}
     where step_id = #{stepId,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByTempId" parameterType="java.util.Map" resultMap="BaseResultMap">
+  select  <include refid="Base_Column_List"/>
+   from wf_temp_step where temp_id=#{tempId} and order_no=#{orderNo}
+  </select>
 </mapper>

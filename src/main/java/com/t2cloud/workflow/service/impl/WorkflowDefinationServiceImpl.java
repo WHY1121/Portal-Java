@@ -57,6 +57,8 @@ public class WorkflowDefinationServiceImpl implements WorkflowDefinationService 
     @Override
     public void list() {
         //查询模版、步骤、变量进行拼装 存入session
+
+
         //TODO 列表sql 分2个条件  1管理员和普通用户 2是否为模版
 //        SELECT * FROM wf_temp _temp,wf_temp_step _step,wf_temp_user _tuser
 //        WHERE

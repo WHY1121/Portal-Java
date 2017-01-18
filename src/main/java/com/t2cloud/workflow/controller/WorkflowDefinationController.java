@@ -1,5 +1,8 @@
 package com.t2cloud.workflow.controller;
 
+import com.t2cloud.workflow.pojo.WfTemp;
+import com.t2cloud.workflow.service.WorkflowDefinationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,25 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class WorkflowDefinationController {
-
+    @Autowired
+    private WorkflowDefinationService workflowDefinationService;
 
     /**
      * 流程定义
+     *
      * @return
      */
-    @RequestMapping("/save")
-    public String save(){
-
-
-        return "hello world";
+    @RequestMapping("/saveWorkFlow")
+    public void saveWorkFlow(WfTemp wfTemp) {
+        workflowDefinationService.insertWorkFlow(wfTemp);
     }
 
     /**
      * 流程修改（不是model）
+     *
      * @return
      */
     @RequestMapping("/update")
-    public String update(){
+    public String update() {
 
 
         return "hello world";
@@ -38,10 +42,11 @@ public class WorkflowDefinationController {
 
     /**
      * 删除流程（下面没有流程实例）
+     *
      * @return
      */
     @RequestMapping("/delete")
-    public String delete(){
+    public String delete() {
 
 
         return "hello world";
@@ -49,10 +54,11 @@ public class WorkflowDefinationController {
 
     /**
      * 流程定义列表（管理员看到所有，普通成员看到的都是模版）
+     *
      * @return
      */
     @RequestMapping("/list")
-    public String list(){
+    public String list() {
 
 
         return "hello world";

@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.t2cloud.workflow.mapper.PortalDepartmentMapper" >
-  <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.PortalDepartment" >
-    <id column="department_id" property="departmentId" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="code" property="code" jdbcType="INTEGER" />
-    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
-    <result column="is_top" property="isTop" jdbcType="INTEGER" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.t2cloud.workflow.mapper.PortalDepartmentMapper">
+    <resultMap id="BaseResultMap" type="com.t2cloud.workflow.pojo.PortalDepartment">
+        <id column="department_id" property="departmentId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="is_top" property="isTop" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     department_id, name, code, parent_id, is_top, description
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from portal_department
-    where department_id = #{departmentId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from portal_department
+        where department_id = #{departmentId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from portal_department
     where department_id = #{departmentId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="departmentId" parameterType="com.t2cloud.workflow.pojo.PortalDepartment" >
+    <insert id="insert" useGeneratedKeys="true" keyProperty="departmentId"
+            parameterType="com.t2cloud.workflow.pojo.PortalDepartment">
     insert into portal_department (department_id, name, code, 
       parent_id, is_top, description
       )
@@ -30,71 +31,72 @@
       #{parentId,jdbcType=BIGINT}, #{isTop,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="departmentId" parameterType="com.t2cloud.workflow.pojo.PortalDepartment" >
-    insert into portal_department
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="departmentId != null" >
-        department_id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="code != null" >
-        code,
-      </if>
-      <if test="parentId != null" >
-        parent_id,
-      </if>
-      <if test="isTop != null" >
-        is_top,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="departmentId != null" >
-        #{departmentId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null" >
-        #{code,jdbcType=INTEGER},
-      </if>
-      <if test="parentId != null" >
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="isTop != null" >
-        #{isTop,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.PortalDepartment" >
-    update portal_department
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null" >
-        code = #{code,jdbcType=INTEGER},
-      </if>
-      <if test="parentId != null" >
-        parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="isTop != null" >
-        is_top = #{isTop,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where department_id = #{departmentId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.PortalDepartment" >
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="departmentId"
+            parameterType="com.t2cloud.workflow.pojo.PortalDepartment">
+        insert into portal_department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">
+                department_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="isTop != null">
+                is_top,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">
+                #{departmentId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="isTop != null">
+                #{isTop,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.workflow.pojo.PortalDepartment">
+        update portal_department
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="isTop != null">
+                is_top = #{isTop,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where department_id = #{departmentId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.t2cloud.workflow.pojo.PortalDepartment">
     update portal_department
     set name = #{name,jdbcType=VARCHAR},
       code = #{code,jdbcType=INTEGER},
@@ -103,16 +105,30 @@
       description = #{description,jdbcType=VARCHAR}
     where department_id = #{departmentId,jdbcType=BIGINT}
   </update>
-   <!--查询所有父节点-->
-  <select id="findTopList"  resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from portal_department
-    where parent_id=0
-  </select>
-  <!--查询所有父节点下的孩子-->
-  <select id="findAllChildren" parameterType="long" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from portal_department
-    where parent_id=#{departmentId,jdbcType=BIGINT}
+    <!--查询所有父节点-->
+    <select id="findTopList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from portal_department
+        where parent_id=0
+    </select>
+    <!--查询所有父节点下的孩子-->
+    <select id="findAllChildren" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from portal_department
+        where parent_id=#{departmentId,jdbcType=BIGINT}
+    </select>
+    <!--获取部门下的成员-->
+    <select id="selectMembersByDepartMentId" parameterType="java.lang.Long" resultType="com.t2cloud.workflow.vo.DepartmentMember">
+       select
+       _user.user_id as id,
+       _user.name,
+       _depart.name as post
+       from portal_department _depart,portal_user _user
+      where
+        _depart.department_id=_user.department_id
+        and _depart.department_id=#{departmentId,jdbcType=BIGINT};
+
   </select>
 </mapper>

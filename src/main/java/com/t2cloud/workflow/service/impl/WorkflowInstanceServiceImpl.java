@@ -1,15 +1,20 @@
 package com.t2cloud.workflow.service.impl;
 
+import com.google.common.collect.Maps;
 import com.t2cloud.workflow.mapper.WfInstanceMapper;
-import com.t2cloud.workflow.mapper.WfTempMapper;
+import com.t2cloud.workflow.mapper.WfInstanceStepMapper;
+import com.t2cloud.workflow.mapper.WfInstanceUserMapper;
+import com.t2cloud.workflow.mapper.WfTempStepMapper;
 import com.t2cloud.workflow.pojo.WfInstance;
-import com.t2cloud.workflow.pojo.WfTemp;
+import com.t2cloud.workflow.pojo.WfInstanceStep;
+import com.t2cloud.workflow.pojo.WfTempStep;
 import com.t2cloud.workflow.service.WorkflowInstanceService;
 import com.t2cloud.workflow.util.WorkFlowConstance;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,14 +24,17 @@ import java.util.Date;
  * 流程实例业务实现
  */
 @Service
-public class WorkflowInstanceServiceImpl implements WorkflowInstanceService{
-
+public class WorkflowInstanceServiceImpl implements WorkflowInstanceService {
 
 
     @Resource
     private WfInstanceMapper wfInstanceMapper;
     @Resource
-    private WfTempMapper wfTempMapper;
+    private WfTempStepMapper wfTempStepMapper;
+    @Resource
+    private WfInstanceStepMapper wfInstanceStepMapper;
+    @Resource
+    private WfInstanceUserMapper wfInstanceUserMapper;
 
 
     /**
@@ -44,27 +52,26 @@ public class WorkflowInstanceServiceImpl implements WorkflowInstanceService{
         //no.3插入流程审批信息
         wfInstanceMapper.insert(wfInstanc);
 
-
-
-
         //no.4自动开启流程(第一步)
-//        WfTemp wfTemp=wfTempMapper.selectByPrimaryKey();
+        Map<String,Object> map= Maps.newHashMap();
+        map.put("tempId",wfInstanc.getTempId());
+        map.put("orderNo",WorkFlowConstance.STEP);
+        WfTempStep wfTempStep = wfTempStepMapper.selectByTempId(map);
 
 
-
-
-
-
-
-
+        WfInstanceStep wfInstanceStep=new WfInstanceStep();
+        wfInstanceStepMapper.insert(wfInstanceStep);
 
     }
 
     /**
-     * 查询待审批
+     * 修改审批
      */
     @Override
     public void updateWorkFlowProcess() {
+
+        //
+
 
     }
 
@@ -92,13 +99,6 @@ public class WorkflowInstanceServiceImpl implements WorkflowInstanceService{
     public void finishWorkFlowProcess() {
 
     }
-
-
-
-
-
-
-
 
 
 }

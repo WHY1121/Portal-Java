@@ -37,5 +37,7 @@ public class WorkFlowConstance {
     public final static String WORKFLOW_INFO = "WORKFLOW_INFO";// 改变的审批流程
     public final static String WORKFLOW_PROCESS = "WORKFLOW_PROCESS";// 改变的审批节点
 
-	/* ===============全局变量结束=============== */
+
+    public final static Integer STEP = 1;
+    /* ===============全局变量结束=============== */
 }

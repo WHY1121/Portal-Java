@@ -1,6 +1,7 @@
 package com.t2cloud.workflow.service;
 
 import com.t2cloud.workflow.pojo.PortalDepartment;
+import com.t2cloud.workflow.vo.DepartmentMember;
 
 import java.util.List;
 
@@ -31,7 +32,10 @@ public interface DepartmentService {
      */
     void update(PortalDepartment portalDepartment);
     /**
-     * 部门详情
+     * 获取部门下成员
      */
+    List<DepartmentMember> allMembers(Long departmentId);
+
+
 
 }

@@ -150,4 +150,10 @@
       version = #{version,jdbcType=INTEGER}
     where temp_id = #{tempId,jdbcType=BIGINT}
   </update>
+
+  <!--流程列表-->
+  <select id="list">
+    select <include refid="Base_Column_List"/>
+    from wf_temp
+  </select>
 </mapper>

@@ -125,4 +125,18 @@
       description = #{description,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+
+
+  <!--查询部门或角色成员人数-->
+  <select id="selectCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(0) from portal_user
+    <where>
+      <if test="departmentId != null">
+        department_id = #{departmentId}
+      </if>
+      <if test="roleId != null">
+        AND role_id = #{roleId}
+      </if>
+    </where>
+  </select>
 </mapper>

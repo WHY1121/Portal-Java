@@ -1,6 +1,12 @@
 package com.t2cloud.workflow.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.util.List;
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class PortalDepartment {
+    @JsonProperty("id")
     private Long departmentId;
 
     private String name;
@@ -12,6 +18,39 @@ public class PortalDepartment {
     private Integer isTop;
 
     private String description;
+
+
+    //扩展属性
+
+    private Integer memberCount;
+
+    private List<PortalDepartment> children;
+
+    private boolean root;
+
+    public Integer getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(Integer memberCount) {
+        this.memberCount = memberCount;
+    }
+
+    public boolean isRoot() {
+        return root;
+    }
+
+    public void setRoot(boolean root) {
+        this.root = root;
+    }
+
+    public List<PortalDepartment> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<PortalDepartment> children) {
+        this.children = children;
+    }
 
     public Long getDepartmentId() {
         return departmentId;
