@@ -110,6 +110,6 @@
         <include refid="Base_Column_List"/>
         from wf_temp_user
         where
-        step_id=#{step_id}
+        step_id=#{stepId}
     </select>
 </mapper>

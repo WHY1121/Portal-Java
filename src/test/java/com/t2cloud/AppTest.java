@@ -2,12 +2,13 @@ package com.t2cloud;
 
 import com.google.common.collect.Maps;
 import com.t2cloud.mapper.PortalUserMapper;
+import com.t2cloud.mapper.WfInstanceStepMapper;
+import com.t2cloud.pojo.*;
 import com.t2cloud.service.*;
-import com.t2cloud.pojo.PortalDepartment;
-import com.t2cloud.pojo.WfTemp;
-import com.t2cloud.pojo.WfTempStep;
+import com.t2cloud.vo.WfTaskBo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,18 +25,20 @@ import java.util.Map;
 public class AppTest extends AbstractJUnit4SpringContextTests {
 
 
-    @Resource
+    @Autowired
     private WorkflowDefinationService workflowDefinationService;
-    @Resource
+    @Autowired
     private WorkflowInstanceService workflowInstanceService;
-    @Resource
+    @Autowired
     private WorkflowHistoryService workflowHistoryService;
-    @Resource
+    @Autowired
     private PortalRoleService portalRoleService;
-    @Resource
+    @Autowired
     private DepartmentService departmentService;
-    @Resource
+    @Autowired
     private PortalUserMapper portalUserMapper;
+    @Resource
+    private WfInstanceStepMapper wfInstanceStepMapper;
 
 
     @Test
@@ -72,21 +75,27 @@ public class AppTest extends AbstractJUnit4SpringContextTests {
 //        wfTempUser.setHandlerId("1122");
 //        wfTempUser.setHandlerName("why888");
 //        wfTempUser.setHandleRole(2L);
-        workflowDefinationService.insertWorkFlowStep(2L,wfTempStep,null);
+//        workflowDefinationService.insertWorkFlowStep(2L,wfTempStep,null);
     }
     @Test
     public void testTask(){
 
-        List<PortalDepartment> list=departmentService.list();
-        for(PortalDepartment portalDepartment:list){
-            System.out.println(portalDepartment.getName());
-        }
+//        WfInstanceStep wfInstanceStep=new WfInstanceStep();
+//        wfInstanceStep.setInstanceId(111L);
+//        wfInstanceStepMapper.selectBySelective(wfInstanceStep);
+        List<WfTaskBo> wfTaskBos = workflowInstanceService.waitWorkFlowProcess(1121L);
+        System.out.println(wfTaskBos);
+
     }
     @Test
     public void testTranstion(){
-        Map<String,Object> map= Maps.newHashMap();
-        map.put("roleId",1L);
-        portalUserMapper.selectCount(map);
+        WfInstance wfInstance=new WfInstance();
+        wfInstance.setTempId(2L);
+        wfInstance.setName("请假流程");
+        wfInstance.setCreateId("1121");
+        wfInstance.setCreateName("why");
+        wfInstance.setUrgent(1);
+       workflowInstanceService.workflowProcess(wfInstance);
 
     }
 

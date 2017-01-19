@@ -197,4 +197,17 @@
       urgent_func = #{urgentFunc,jdbcType=INTEGER}
     where instance_id = #{instanceId,jdbcType=BIGINT}
   </update>
+  <!--所有模版列表-->
+  <select id="list" parameterType="com.t2cloud.pojo.WfInstance" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from wf_temp
+    <where>
+      <if test="status !=null">
+        status=#{status}
+      </if>
+    </where>
+  </select>
+
+
+
 </mapper>

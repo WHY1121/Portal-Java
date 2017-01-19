@@ -26,7 +26,7 @@
 	</bean>
 	<!--扫描包路径，多个包中间用半角都好分割-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.t2cloud.workflow.mapper" />
+		<property name="basePackage" value="com.t2cloud.mapper" />
 	</bean>
 
 </beans>

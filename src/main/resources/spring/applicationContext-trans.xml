@@ -22,7 +22,7 @@
 
 	<!-- 切面 -->
 	<aop:config>
-        <aop:pointcut id="businessLogicPointcut" expression="execution( * com.t2cloud.workflow.service.impl.*.*(..))"/>
+        <aop:pointcut id="businessLogicPointcut" expression="execution( * com.t2cloud.service.impl.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="businessLogicPointcut"/>
     </aop:config>
   </beans>

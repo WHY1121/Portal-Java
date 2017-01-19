@@ -212,6 +212,7 @@
     where step_id = #{stepId,jdbcType=BIGINT}
   </update>
 
+    <!--根据模版id查询步骤-->
     <select id="selectByTempId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

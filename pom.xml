@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.t2cloud</groupId>
-    <artifactId>workflow</artifactId>
+    <artifactId>portal</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>workflow</name>
+    <name>portal</name>
     <url>http://maven.apache.org</url>
 
     <properties>

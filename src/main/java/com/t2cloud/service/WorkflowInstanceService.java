@@ -1,6 +1,9 @@
 package com.t2cloud.service;
 
 import com.t2cloud.pojo.WfInstance;
+import com.t2cloud.vo.WfTaskBo;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,11 +24,11 @@ public interface WorkflowInstanceService {
     /**
      * 审批流程实例
      */
-    void approveWorkFlowProcess();
+    void approveWorkFlowProcess(Long instanceId);
     /**
      * 待审批
      */
-    void waitWorkFlowProcess();
+    List<WfTaskBo> waitWorkFlowProcess(Long handleId);
     /**
      * 已审批
      */

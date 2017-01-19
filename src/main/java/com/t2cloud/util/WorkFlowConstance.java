@@ -31,6 +31,12 @@ public class WorkFlowConstance {
     public final static Integer PASS_APPROVE = 5;// 审批通过
     public final static Integer REJECT = 6;// 驳回
 
+
+    // 审批流程步骤状态
+    public final static Integer PASS = 1;// 通过
+    public final static Integer NOT_PASS = 2;// 不通过
+
+
     public final static Integer WORKFLOW_STATUS_CHANGED = 1;// 审批流程状态已经改变
     public final static Integer PROCESS_CHANGED = 2;// 审批流程状态已经改变
     public final static Integer NEW_CHANGED = 3;// 审批流程状态已经改变

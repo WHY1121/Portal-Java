@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <!-- 扫描controller -->
-	<context:component-scan base-package="com.t2cloud.workflow.controller" />
+	<context:component-scan base-package="com.t2cloud.controller" />
 	<!-- springmvc注解 -->
 	<mvc:annotation-driven />
 	<!-- json转换器 -->
@@ -16,7 +16,7 @@
 	<!-- 配置注解扫描 -->
 	<context:annotation-config />
 	<!-- 自动扫描的包名 -->
-	<context:component-scan base-package="com.t2cloud.workflow.*" />
+	<context:component-scan base-package="com.t2cloud.*" />
 	<!-- 上传图片转换器 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
 	</bean>

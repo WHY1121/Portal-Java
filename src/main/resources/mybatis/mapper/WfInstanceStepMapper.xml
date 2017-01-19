@@ -212,12 +212,29 @@
     where step_id = #{stepId,jdbcType=BIGINT}
   </update>
 
-    <!--查询实例步骤-->
-    <select id="selectByUserId" parameterType="java.lang.String">
-    select * from  wf_instance _instance left join wf_instance_step _step
-      on _instance.instance_id=_step.instance_id
-      left join wf_instance_user _user
-      on _step.step_id=_user.step_id
-      where _user.handler_id=#{handlerId};
-  </select>
+    <!--&lt;!&ndash;查询实例步骤&ndash;&gt;-->
+    <!--<select id="selectByUserId" parameterType="java.lang.String">-->
+    <!--select * from  wf_instance _instance left join wf_instance_step _step-->
+    <!--on _instance.instance_id=_step.instance_id-->
+    <!--left join wf_instance_user _user-->
+    <!--on _step.step_id=_user.step_id-->
+    <!--where _user.handler_id=#{handlerId};-->
+    <!--</select>-->
+    <!--根据模版id查询步骤-->
+    <select id="selectBySelective" parameterType="com.t2cloud.pojo.WfInstanceStep" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wf_instance_step
+        <where>
+            <if test="instanceId!=null">
+                instance_id=#{instanceId}
+            </if>
+            <if test="status == null">
+                and status is null
+            </if>
+            <if test="status !=null">
+                and status =#{status}
+            </if>
+        </where>
+    </select>
 </mapper>
