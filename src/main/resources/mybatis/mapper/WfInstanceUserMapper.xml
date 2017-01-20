@@ -25,10 +25,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.pojo.WfInstanceUser">
-    insert into wf_instance_user (id, step_id, result, 
+    insert into wf_instance_user (step_id, result,
       suggestion, handle_time, handler_id, 
       handler_name, level)
-    values (#{id,jdbcType=BIGINT}, #{stepId,jdbcType=BIGINT}, #{result,jdbcType=INTEGER}, 
+    values (#{stepId,jdbcType=BIGINT}, #{result,jdbcType=INTEGER},
       #{suggestion,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, #{handlerId,jdbcType=VARCHAR}, 
       #{handlerName,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER})
   </insert>
@@ -36,9 +36,6 @@
             parameterType="com.t2cloud.pojo.WfInstanceUser">
         insert into wf_instance_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="stepId != null">
                 step_id,
             </if>
@@ -62,9 +59,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=BIGINT},
-            </if>
             <if test="stepId != null">
                 #{stepId,jdbcType=BIGINT},
             </if>
@@ -136,6 +130,7 @@
        _step.deadline,
        _step.begin_time as beginTime,
        _step.end_time as endTime,
+       _user.id,
        _user.handler_id as handleId,
        _user.handler_name as handleName
      from  wf_instance _instance,wf_instance_step _step,wf_instance_user _user
@@ -155,11 +150,11 @@
             <if test="stepId !=null">
                 step_id=#{stepId}
             </if>
-            <if test="status !=null">
-                and status=#{stepId}
+            <if test="result !=null">
+                and result=#{result}
             </if>
-            <if test="status ==null">
-                and status is null
+            <if test="result ==null">
+                and result is null
             </if>
         </where>
     </select>

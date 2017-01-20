@@ -25,10 +25,20 @@ public class WfTaskBo implements Serializable{
     private Date beginTime;
     //结束时间
     private Date endTime;
+    //实例流程处理人
+    private Long id;
     //处理人id
     private Long handleId;
     //处理人姓名
     private String handleName;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getInstanceId() {
         return instanceId;

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: twcloud1
@@ -58,9 +60,9 @@ public class WorkflowDefinationController {
      * @return
      */
     @RequestMapping("/list")
-    public String list() {
+    public List<WfTemp> list() {
 
-
-        return "hello world";
+        List<WfTemp> list = workflowDefinationService.list();
+        return list;
     }
 }

@@ -7,10 +7,10 @@ import com.t2cloud.pojo.WfTemp;
 import com.t2cloud.pojo.WfTempStep;
 import com.t2cloud.pojo.WfTempUser;
 import com.t2cloud.service.WorkflowDefinationService;
-import com.t2cloud.vo.WorkFlowDefination;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ import java.util.List;
  * Time: 13:36
  * 流程定义实现类
  */
-@Service
+@Service(value = "workflowDefinationService")
 public class WorkflowDefinationServiceImpl implements WorkflowDefinationService {
 
     @Resource
@@ -52,58 +52,116 @@ public class WorkflowDefinationServiceImpl implements WorkflowDefinationService 
             wfTempUser.setstepId(wfTempStep.getStepId());
             wfTempUserMapper.insert(wfTempUser);
         }
+        //TODO 最后一步,修改流程状态为可用
+        WfTemp wfTemp=new WfTemp();
+        wfTemp.setTempId(workFlowId);
+        wfTemp.setUse(true);
+        wfTempMapper.updateByPrimaryKeySelective(wfTemp);
+
     }
 
 
     @Override
-    public void list() {
+    public List<WfTemp> list() {
+        return getWfTemps(null);
+    }
 
+    /**
+     * 获取模版列表信息或单个列表详情
+     *
+     * @param temp
+     * @return
+     */
+    private List<WfTemp> getWfTemps(WfTemp temp) {
         //查询所有，模版
-        List<WfTemp> wfTemps = wfTempMapper.list();
-        //TODO 步骤信息
+        List<WfTemp> wfTemps = wfTempMapper.list(temp);
         if (null != wfTemps && wfTemps.size() > 0) {
+            List<WfTempStep> wfTempSteps = null;
             for (WfTemp wfTemp : wfTemps) {
-                List<WfTempStep> wfTempSteps = wfTempStepMapper.selectByTempId(wfTemp.getTempId());
+                wfTempSteps = wfTempStepMapper.selectByTempId(wfTemp.getTempId());
                 //步骤审批人信息
                 if (null != wfTempSteps && wfTempSteps.size() > 0) {
+                    wfTemp.setWfTempStepList(wfTempSteps);
+                    List<WfTempUser> wfTempUsers = null;
                     for (WfTempStep wfTempStep : wfTempSteps) {
-                        List<WfTempUser> wfTempUsers = wfTempUserMapper.selectByStepId(wfTempStep.getStepId());
+                        wfTempUsers = wfTempUserMapper.selectByStepId(wfTempStep.getStepId());
+                        if (null != wfTempUsers && wfTempUsers.size() > 0) {
+                            wfTempStep.setTempUsers(wfTempUsers);
+                        }
                     }
                 }
             }
         }
-
-//        SELECT * FROM wf_temp _temp,wf_temp_step _step,wf_temp_user _tuser
-//        WHERE
-//        _temp.temp_id=_step.temp_id
-//        AND
-//        _step.step_id=_tuser.step_id;
-
-
+        return wfTemps;
     }
 
-    @Override
-    public void update(WorkFlowDefination flowDefination) throws Exception {
-        //判断模版是不是模版 维护session里的信息
-        if (flowDefination.getWfTemp().getIsmodel() == 0) {
-            throw new Exception("模版不提供修改功能");
+    private List<WfTemp> deleteWfTemps(WfTemp temp) {
+        //查询所有，模版
+        List<WfTemp> wfTemps = wfTempMapper.list(temp);
+        if (null != wfTemps && wfTemps.size() > 0) {
+            List<WfTempStep> wfTempSteps = null;
+            for (WfTemp wfTemp : wfTemps) {
+                wfTempSteps = wfTempStepMapper.selectByTempId(wfTemp.getTempId());
+                //步骤审批人信息
+                if (null != wfTempSteps && wfTempSteps.size() > 0) {
+                    List<WfTempUser> wfTempUsers = null;
+                    for (WfTempStep wfTempStep : wfTempSteps) {
+                        wfTempUsers = wfTempUserMapper.selectByStepId(wfTempStep.getStepId());
+                        if (null != wfTempUsers && wfTempUsers.size() > 0) {
+                            for (WfTempUser wfTempUser : wfTempUsers) {
+                                //删除模版用户信息
+                                wfTempUserMapper.deleteByPrimaryKey(wfTempUser.getid());
+                            }
+                            //删除步骤信息
+                            wfTempStepMapper.deleteByPrimaryKey(wfTempStep.getStepId());
+                        } else {
+                            //删除步骤信息
+                            wfTempStepMapper.deleteByPrimaryKey(wfTempStep.getStepId());
+                        }
+                    }
+                    //删除模版
+                    wfTempMapper.deleteByPrimaryKey(wfTemp.getTempId());
+                }
+            }
         }
-        //TODO 待修改
-        //temp修改字段
-        wfTempMapper.updateByPrimaryKeySelective(flowDefination.getWfTemp());
-        //修改步骤字段
-        wfTempStepMapper.updateByPrimaryKeySelective(flowDefination.getWfTempStep().get(0));
-        //修改步骤变量字段
-        wfTempUserMapper.updateByPrimaryKeySelective(flowDefination.getWfTempUser().get(0));
-
+        return wfTemps;
     }
 
+    /**
+     * 修改流程
+     * @param wfTemp
+     * @param wfTempStep
+     * @param wfTempUser
+     * @throws Exception
+     */
     @Override
-    public void delete(String tempId) {
-        //维护session里的流程模版
-        //TODO 删除流程要判读有没有流程实例正在运行，否则不能删除
-//         wfTempUserMapper.deleteByPrimaryKey();
+    public void update(WfTemp wfTemp, WfTempStep wfTempStep, WfTempUser wfTempUser) throws Exception {
+        //判断模版是不是模版 维护session里的信息
+        if (null != wfTemp) {
+            //temp修改字段
+            wfTempMapper.updateByPrimaryKeySelective(wfTemp);
+        }
+        if (null != wfTempStep) {
+            //修改步骤字段
+            wfTempStepMapper.updateByPrimaryKeySelective(wfTempStep);
+        }
+        if (null != wfTempUser) {
+            //修改步骤变量字段
+            wfTempUserMapper.updateByPrimaryKeySelective(wfTempUser);
+        }
+    }
+
+    /**
+     * 删除模版
+     * @param tempId
+     */
+    @Override
+    public void delete(Long tempId) {
+        //TODO 硬删除  or  软删除 删除流程要判读有没有流程实例正在运行，否则不能删除  模版不能删除
         //根据流程模版查找流程步骤，删除流程步骤下的变量，在删除流程步骤，在删除流程
+        WfTemp wfTemp = new WfTemp();
+        wfTemp.setTempId(tempId);
+        deleteWfTemps(wfTemp);
     }
 
     /**
@@ -111,22 +169,8 @@ public class WorkflowDefinationServiceImpl implements WorkflowDefinationService 
      */
     @Override
     public WfTemp show(Long tempId) {
-        //TODO
-        WfTemp wfTemp = wfTempMapper.selectByPrimaryKey(tempId);
-        if (null != wfTemp) {
-            List<WfTempStep> wfTempSteps = wfTempStepMapper.selectByTempId(tempId);
-            if (null != wfTempSteps && wfTempSteps.size() > 0) {
-                wfTemp.setWfTempStepList(wfTempSteps);
-                for (WfTempStep wfTempStep : wfTempSteps) {
-                    List<WfTempUser> wfTempUsers = wfTempUserMapper.selectByStepId(wfTempStep.getStepId());
-                    if (null != wfTempUsers && wfTempUsers.size() > 0) {
-                        wfTempStep.setTempUsers(wfTempUsers);
-                    }
-                }
-            }
-        }
-       return wfTemp;
+        WfTemp wfTemp = new WfTemp();
+        wfTemp.setTempId(tempId);
+        return getWfTemps(wfTemp).get(0);
     }
-
-
 }

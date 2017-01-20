@@ -23,10 +23,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.t2cloud.pojo.WfTempUser">
-    insert into wf_temp_user (id, step_id, handler_id,
+    insert into wf_temp_user (step_id, handler_id,
       handler_name, handle_role, other
       )
-    values (#{id,jdbcType=BIGINT}, #{stepId,jdbcType=BIGINT}, #{handlerId,jdbcType=VARCHAR},
+    values (#{stepId,jdbcType=BIGINT}, #{handlerId,jdbcType=VARCHAR},
       #{handlerName,jdbcType=VARCHAR}, #{handleRole,jdbcType=BIGINT}, #{other,jdbcType=VARCHAR}
       )
   </insert>
@@ -34,9 +34,6 @@
             parameterType="com.t2cloud.pojo.WfTempUser">
         insert into wf_temp_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="stepId != null">
                 step_id,
             </if>
@@ -54,9 +51,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=BIGINT},
-            </if>
             <if test="stepId != null">
                 #{stepId,jdbcType=BIGINT},
             </if>

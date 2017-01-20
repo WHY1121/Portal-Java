@@ -19,15 +19,15 @@ public class WfTempStep {
 
     private Long nextId;
 
-    private Integer isLast;
+    private Boolean isLast;
 
     private Long deadline;
 
-    private Integer isaudit;
+    private Boolean isaudit;
 
-    private Integer isauto;
+    private Boolean isauto;
 
-    private Integer rebut;
+    private Boolean rebut;
 
     private Integer rebutFlag;
 
@@ -108,12 +108,12 @@ public class WfTempStep {
         this.nextId = nextId;
     }
 
-    public Integer getIsLast() {
+    public Boolean getLast() {
         return isLast;
     }
 
-    public void setIsLast(Integer isLast) {
-        this.isLast = isLast;
+    public void setLast(Boolean last) {
+        isLast = last;
     }
 
     public Long getDeadline() {
@@ -124,27 +124,27 @@ public class WfTempStep {
         this.deadline = deadline;
     }
 
-    public Integer getIsaudit() {
+    public Boolean getIsaudit() {
         return isaudit;
     }
 
-    public void setIsaudit(Integer isaudit) {
+    public void setIsaudit(Boolean isaudit) {
         this.isaudit = isaudit;
     }
 
-    public Integer getIsauto() {
+    public Boolean getIsauto() {
         return isauto;
     }
 
-    public void setIsauto(Integer isauto) {
+    public void setIsauto(Boolean isauto) {
         this.isauto = isauto;
     }
 
-    public Integer getRebut() {
+    public Boolean getRebut() {
         return rebut;
     }
 
-    public void setRebut(Integer rebut) {
+    public void setRebut(Boolean rebut) {
         this.rebut = rebut;
     }
 

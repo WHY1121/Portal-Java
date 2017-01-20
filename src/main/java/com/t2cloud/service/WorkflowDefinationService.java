@@ -2,8 +2,9 @@ package com.t2cloud.service;
 
 import com.t2cloud.pojo.WfTemp;
 import com.t2cloud.pojo.WfTempUser;
-import com.t2cloud.vo.WorkFlowDefination;
 import com.t2cloud.pojo.WfTempStep;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,11 +24,11 @@ public interface WorkflowDefinationService {
      */
     void insertWorkFlowStep(Long workFlowId, WfTempStep wfTempStep,WfTempUser wfTempUser);
 
-    void list();
+    List<WfTemp> list();
 
-    void update(WorkFlowDefination flowDefination) throws Exception;
+    void update(WfTemp wfTemp,WfTempStep wfTempStep,WfTempUser wfTempUser) throws Exception;
 
-    void delete(String tempId);
+    void delete(Long tempId);
 
     /**
      * 查询模版详情

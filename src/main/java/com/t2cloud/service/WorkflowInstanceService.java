@@ -1,6 +1,8 @@
 package com.t2cloud.service;
 
 import com.t2cloud.pojo.WfInstance;
+import com.t2cloud.pojo.WfInstanceStep;
+import com.t2cloud.pojo.WfInstanceUser;
 import com.t2cloud.vo.WfTaskBo;
 
 import java.util.List;
@@ -20,11 +22,11 @@ public interface WorkflowInstanceService {
     /**
      * 修改流程实例
      */
-   void updateWorkFlowProcess();
+   void updateWorkFlowProcess(WfInstance instance);
     /**
      * 审批流程实例
      */
-    void approveWorkFlowProcess(Long instanceId);
+    void approveWorkFlowProcess(Long instanceId,WfInstanceStep wfInstanceStep,WfInstanceUser wfInstanceUser);
     /**
      * 待审批
      */
@@ -32,6 +34,6 @@ public interface WorkflowInstanceService {
     /**
      * 已审批
      */
-    void finishWorkFlowProcess();
+    void myWorkFlowProcess(String userId);
 
 }

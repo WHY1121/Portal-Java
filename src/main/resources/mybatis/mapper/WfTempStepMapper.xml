@@ -10,11 +10,11 @@
         <result column="order_no" property="orderNo" jdbcType="INTEGER"/>
         <result column="super_id" property="superId" jdbcType="BIGINT"/>
         <result column="next_id" property="nextId" jdbcType="BIGINT"/>
-        <result column="is_last" property="isLast" jdbcType="INTEGER"/>
+        <result column="is_last" property="isLast" jdbcType="BIT"/>
         <result column="deadline" property="deadline" jdbcType="BIGINT"/>
-        <result column="isaudit" property="isaudit" jdbcType="INTEGER"/>
-        <result column="isauto" property="isauto" jdbcType="INTEGER"/>
-        <result column="rebut" property="rebut" jdbcType="INTEGER"/>
+        <result column="isaudit" property="isaudit" jdbcType="BIT"/>
+        <result column="isauto" property="isauto" jdbcType="BIT"/>
+        <result column="rebut" property="rebut" jdbcType="BIT"/>
         <result column="rebut_flag" property="rebutFlag" jdbcType="INTEGER"/>
         <result column="extend_1" property="extend1" jdbcType="BIGINT"/>
     </resultMap>
@@ -34,26 +34,23 @@
   </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="stepId"
             parameterType="com.t2cloud.pojo.WfTempStep">
-    insert into wf_temp_step (step_id, temp_id, name, 
+    insert into wf_temp_step (temp_id, name,
       type, step_type, order_no, 
       super_id, next_id, is_last, 
       deadline, isaudit, isauto, 
       rebut, rebut_flag, extend_1
       )
-    values (#{stepId,jdbcType=BIGINT}, #{tempId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+    values (#{tempId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{type,jdbcType=INTEGER}, #{stepType,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER}, 
-      #{superId,jdbcType=BIGINT}, #{nextId,jdbcType=BIGINT}, #{isLast,jdbcType=INTEGER}, 
-      #{deadline,jdbcType=BIGINT}, #{isaudit,jdbcType=INTEGER}, #{isauto,jdbcType=INTEGER}, 
-      #{rebut,jdbcType=INTEGER}, #{rebutFlag,jdbcType=INTEGER}, #{extend1,jdbcType=BIGINT}
+      #{superId,jdbcType=BIGINT}, #{nextId,jdbcType=BIGINT}, #{isLast,jdbcType=BIT},
+      #{deadline,jdbcType=BIGINT}, #{isaudit,jdbcType=BIT}, #{isauto,jdbcType=BIT},
+      #{rebut,jdbcType=BIT}, #{rebutFlag,jdbcType=INTEGER}, #{extend1,jdbcType=BIGINT}
       )
   </insert>
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="stepId"
             parameterType="com.t2cloud.pojo.WfTempStep">
         insert into wf_temp_step
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="stepId != null">
-                step_id,
-            </if>
             <if test="tempId != null">
                 temp_id,
             </if>
@@ -98,9 +95,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="stepId != null">
-                #{stepId,jdbcType=BIGINT},
-            </if>
             <if test="tempId != null">
                 #{tempId,jdbcType=BIGINT},
             </if>
@@ -123,19 +117,19 @@
                 #{nextId,jdbcType=BIGINT},
             </if>
             <if test="isLast != null">
-                #{isLast,jdbcType=INTEGER},
+                #{isLast,jdbcType=BIT},
             </if>
             <if test="deadline != null">
                 #{deadline,jdbcType=BIGINT},
             </if>
             <if test="isaudit != null">
-                #{isaudit,jdbcType=INTEGER},
+                #{isaudit,jdbcType=BIT},
             </if>
             <if test="isauto != null">
-                #{isauto,jdbcType=INTEGER},
+                #{isauto,jdbcType=BIT},
             </if>
             <if test="rebut != null">
-                #{rebut,jdbcType=INTEGER},
+                #{rebut,jdbcType=BIT},
             </if>
             <if test="rebutFlag != null">
                 #{rebutFlag,jdbcType=INTEGER},
@@ -170,19 +164,19 @@
                 next_id = #{nextId,jdbcType=BIGINT},
             </if>
             <if test="isLast != null">
-                is_last = #{isLast,jdbcType=INTEGER},
+                is_last = #{isLast,jdbcType=BIT},
             </if>
             <if test="deadline != null">
                 deadline = #{deadline,jdbcType=BIGINT},
             </if>
             <if test="isaudit != null">
-                isaudit = #{isaudit,jdbcType=INTEGER},
+                isaudit = #{isaudit,jdbcType=BIT},
             </if>
             <if test="isauto != null">
-                isauto = #{isauto,jdbcType=INTEGER},
+                isauto = #{isauto,jdbcType=BIT},
             </if>
             <if test="rebut != null">
-                rebut = #{rebut,jdbcType=INTEGER},
+                rebut = #{rebut,jdbcType=BIT},
             </if>
             <if test="rebutFlag != null">
                 rebut_flag = #{rebutFlag,jdbcType=INTEGER},
@@ -202,11 +196,11 @@
       order_no = #{orderNo,jdbcType=INTEGER},
       super_id = #{superId,jdbcType=BIGINT},
       next_id = #{nextId,jdbcType=BIGINT},
-      is_last = #{isLast,jdbcType=INTEGER},
+      is_last = #{isLast,jdbcType=BIT},
       deadline = #{deadline,jdbcType=BIGINT},
-      isaudit = #{isaudit,jdbcType=INTEGER},
-      isauto = #{isauto,jdbcType=INTEGER},
-      rebut = #{rebut,jdbcType=INTEGER},
+      isaudit = #{isaudit,jdbcType=BIT},
+      isauto = #{isauto,jdbcType=BIT},
+      rebut = #{rebut,jdbcType=BIT},
       rebut_flag = #{rebutFlag,jdbcType=INTEGER},
       extend_1 = #{extend1,jdbcType=BIGINT}
     where step_id = #{stepId,jdbcType=BIGINT}

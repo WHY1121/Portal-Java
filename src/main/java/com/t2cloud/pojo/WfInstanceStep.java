@@ -3,6 +3,7 @@ package com.t2cloud.pojo;
 import java.util.Date;
 
 public class WfInstanceStep {
+
     private Long stepId;
 
     private Long instanceId;
@@ -27,7 +28,7 @@ public class WfInstanceStep {
 
     private Integer isauto;
 
-    private Integer rebut;
+    private Boolean rebut;
 
     private Date beginTime;
 
@@ -129,11 +130,11 @@ public class WfInstanceStep {
         this.isauto = isauto;
     }
 
-    public Integer getRebut() {
+    public Boolean getRebut() {
         return rebut;
     }
 
-    public void setRebut(Integer rebut) {
+    public void setRebut(Boolean rebut) {
         this.rebut = rebut;
     }
 

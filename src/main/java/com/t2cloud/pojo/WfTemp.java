@@ -18,13 +18,13 @@ public class WfTemp {
 
     private String modifyUserId;
 
-    private Integer ismodel;
+    private Boolean ismodel;
 
     private String remark;
 
     private Integer version;
 
-    private Integer isUse;
+    private Boolean isUse;
 
     //扩展字段
     private List<WfTempStep> wfTempStepList;
@@ -93,11 +93,11 @@ public class WfTemp {
         this.modifyUserId = modifyUserId == null ? null : modifyUserId.trim();
     }
 
-    public Integer getIsmodel() {
+    public Boolean getIsmodel() {
         return ismodel;
     }
 
-    public void setIsmodel(Integer ismodel) {
+    public void setIsmodel(Boolean ismodel) {
         this.ismodel = ismodel;
     }
 
@@ -117,11 +117,11 @@ public class WfTemp {
         this.version = version;
     }
 
-    public Integer getIsUse() {
+    public Boolean getUse() {
         return isUse;
     }
 
-    public void setIsUse(Integer isUse) {
-        this.isUse = isUse;
+    public void setUse(Boolean use) {
+        isUse = use;
     }
 }

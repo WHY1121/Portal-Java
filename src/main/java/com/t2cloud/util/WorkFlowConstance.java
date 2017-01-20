@@ -44,6 +44,8 @@ public class WorkFlowConstance {
     public final static String WORKFLOW_PROCESS = "WORKFLOW_PROCESS";// 改变的审批节点
 
 
-    public final static Integer STEP = 1;
+    public final static String CURRENTSTEP = "currentStep";//当前步骤
+    public final static String NEXTSTEP = "nextStep";//下一步骤
+    public final static Integer STEP = 1;//第一步
     /* ===============全局变量结束=============== */
 }

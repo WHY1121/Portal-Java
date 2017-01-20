@@ -8,13 +8,13 @@
         <result column="type" property="type" jdbcType="INTEGER"/>
         <result column="order_no" property="orderNo" jdbcType="INTEGER"/>
         <result column="step_type" property="stepType" jdbcType="INTEGER"/>
-        <result column="is_last" property="isLast" jdbcType="INTEGER"/>
+        <result column="is_last" property="isLast" jdbcType="BIT"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="super_id" property="superId" jdbcType="BIGINT"/>
         <result column="next_id" property="nextId" jdbcType="BIGINT"/>
         <result column="deadline" property="deadline" jdbcType="BIGINT"/>
-        <result column="isauto" property="isauto" jdbcType="INTEGER"/>
-        <result column="rebut" property="rebut" jdbcType="INTEGER"/>
+        <result column="isauto" property="isauto" jdbcType="BIT"/>
+        <result column="rebut" property="rebut" jdbcType="BIT"/>
         <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP"/>
         <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -34,26 +34,23 @@
   </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="stepId"
             parameterType="com.t2cloud.pojo.WfInstanceStep">
-    insert into wf_instance_step (step_id, instance_id, step_name, 
+    insert into wf_instance_step (instance_id,step_name,
       type, order_no, step_type, 
       is_last, status, super_id, 
       next_id, deadline, isauto, 
       rebut, begin_time, end_time
       )
-    values (#{stepId,jdbcType=BIGINT}, #{instanceId,jdbcType=BIGINT}, #{stepName,jdbcType=VARCHAR}, 
+    values (#{instanceId,jdbcType=BIGINT},#{stepName,jdbcType=VARCHAR},
       #{type,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER}, #{stepType,jdbcType=INTEGER}, 
-      #{isLast,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{superId,jdbcType=BIGINT}, 
-      #{nextId,jdbcType=BIGINT}, #{deadline,jdbcType=BIGINT}, #{isauto,jdbcType=INTEGER}, 
-      #{rebut,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      #{isLast,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{superId,jdbcType=BIGINT},
+      #{nextId,jdbcType=BIGINT}, #{deadline,jdbcType=BIGINT}, #{isauto,jdbcType=BIT},
+      #{rebut,jdbcType=BIT}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
       )
   </insert>
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="stepId"
             parameterType="com.t2cloud.pojo.WfInstanceStep">
         insert into wf_instance_step
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="stepId != null">
-                step_id,
-            </if>
             <if test="instanceId != null">
                 instance_id,
             </if>
@@ -98,9 +95,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="stepId != null">
-                #{stepId,jdbcType=BIGINT},
-            </if>
             <if test="instanceId != null">
                 #{instanceId,jdbcType=BIGINT},
             </if>
@@ -117,7 +111,7 @@
                 #{stepType,jdbcType=INTEGER},
             </if>
             <if test="isLast != null">
-                #{isLast,jdbcType=INTEGER},
+                #{isLast,jdbcType=BIT},
             </if>
             <if test="status != null">
                 #{status,jdbcType=INTEGER},
@@ -132,10 +126,10 @@
                 #{deadline,jdbcType=BIGINT},
             </if>
             <if test="isauto != null">
-                #{isauto,jdbcType=INTEGER},
+                #{isauto,jdbcType=BIT},
             </if>
             <if test="rebut != null">
-                #{rebut,jdbcType=INTEGER},
+                #{rebut,jdbcType=BIT},
             </if>
             <if test="beginTime != null">
                 #{beginTime,jdbcType=TIMESTAMP},
@@ -164,7 +158,7 @@
                 step_type = #{stepType,jdbcType=INTEGER},
             </if>
             <if test="isLast != null">
-                is_last = #{isLast,jdbcType=INTEGER},
+                is_last = #{isLast,jdbcType=BIT},
             </if>
             <if test="status != null">
                 status = #{status,jdbcType=INTEGER},
@@ -179,10 +173,10 @@
                 deadline = #{deadline,jdbcType=BIGINT},
             </if>
             <if test="isauto != null">
-                isauto = #{isauto,jdbcType=INTEGER},
+                isauto = #{isauto,jdbcType=BIT},
             </if>
             <if test="rebut != null">
-                rebut = #{rebut,jdbcType=INTEGER},
+                rebut = #{rebut,jdbcType=BIT},
             </if>
             <if test="beginTime != null">
                 begin_time = #{beginTime,jdbcType=TIMESTAMP},
@@ -200,13 +194,13 @@
       type = #{type,jdbcType=INTEGER},
       order_no = #{orderNo,jdbcType=INTEGER},
       step_type = #{stepType,jdbcType=INTEGER},
-      is_last = #{isLast,jdbcType=INTEGER},
+      is_last = #{isLast,jdbcType=BIT},
       status = #{status,jdbcType=INTEGER},
       super_id = #{superId,jdbcType=BIGINT},
       next_id = #{nextId,jdbcType=BIGINT},
       deadline = #{deadline,jdbcType=BIGINT},
-      isauto = #{isauto,jdbcType=INTEGER},
-      rebut = #{rebut,jdbcType=INTEGER},
+      isauto = #{isauto,jdbcType=BIT},
+      rebut = #{rebut,jdbcType=BIT},
       begin_time = #{beginTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP}
     where step_id = #{stepId,jdbcType=BIGINT}
@@ -226,13 +220,13 @@
         <include refid="Base_Column_List"/>
         from wf_instance_step
         <where>
-            <if test="instanceId!=null">
+            <if test="instanceId != null">
                 instance_id=#{instanceId}
             </if>
             <if test="status == null">
                 and status is null
             </if>
-            <if test="status !=null">
+            <if test="status !=null and status != 5">
                 and status =#{status}
             </if>
         </where>

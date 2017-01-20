@@ -1,153 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.t2cloud.mapper.WfTempMapper">
-  <resultMap id="BaseResultMap" type="com.t2cloud.pojo.WfTemp">
-    <id column="temp_id" jdbcType="BIGINT" property="tempId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="post_timestamp" jdbcType="TIMESTAMP" property="postTimestamp" />
-    <result column="post_user_id" jdbcType="VARCHAR" property="postUserId" />
-    <result column="modify_timestamp" jdbcType="TIMESTAMP" property="modifyTimestamp" />
-    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
-    <result column="ismodel" jdbcType="INTEGER" property="ismodel" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="version" jdbcType="INTEGER" property="version" />
-    <result column="is_use" jdbcType="INTEGER" property="isUse" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.t2cloud.pojo.WfTemp">
+        <id column="temp_id" jdbcType="BIGINT" property="tempId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="post_timestamp" jdbcType="TIMESTAMP" property="postTimestamp"/>
+        <result column="post_user_id" jdbcType="VARCHAR" property="postUserId"/>
+        <result column="modify_timestamp" jdbcType="TIMESTAMP" property="modifyTimestamp"/>
+        <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId"/>
+        <result column="ismodel" jdbcType="BIT" property="ismodel"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="is_use" jdbcType="BIT" property="isUse"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     temp_id, name, status, post_timestamp, post_user_id, modify_timestamp, modify_user_id,
     ismodel, remark, version, is_use
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from wf_temp
-    where temp_id = #{tempId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wf_temp
+        where temp_id = #{tempId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from wf_temp
     where temp_id = #{tempId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.t2cloud.pojo.WfTemp">
-    insert into wf_temp (temp_id, name, status,
+    <insert id="insert" parameterType="com.t2cloud.pojo.WfTemp">
+    insert into wf_temp (name, status,
       post_timestamp, post_user_id, modify_timestamp,
       modify_user_id, ismodel, remark,
       version, is_use)
-    values (#{tempId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+    values (#{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
       #{postTimestamp,jdbcType=TIMESTAMP}, #{postUserId,jdbcType=VARCHAR}, #{modifyTimestamp,jdbcType=TIMESTAMP},
-      #{modifyUserId,jdbcType=VARCHAR}, #{ismodel,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
-      #{version,jdbcType=INTEGER}, #{isUse,jdbcType=INTEGER})
+      #{modifyUserId,jdbcType=VARCHAR}, #{ismodel,jdbcType=BIT}, #{remark,jdbcType=VARCHAR},
+      #{version,jdbcType=INTEGER}, #{isUse,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.t2cloud.pojo.WfTemp">
-    insert into wf_temp
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="tempId != null">
-        temp_id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="postTimestamp != null">
-        post_timestamp,
-      </if>
-      <if test="postUserId != null">
-        post_user_id,
-      </if>
-      <if test="modifyTimestamp != null">
-        modify_timestamp,
-      </if>
-      <if test="modifyUserId != null">
-        modify_user_id,
-      </if>
-      <if test="ismodel != null">
-        ismodel,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="version != null">
-        version,
-      </if>
-      <if test="isUse != null">
-        is_use,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="tempId != null">
-        #{tempId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="postTimestamp != null">
-        #{postTimestamp,jdbcType=TIMESTAMP},
-      </if>
-      <if test="postUserId != null">
-        #{postUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="modifyTimestamp != null">
-        #{modifyTimestamp,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyUserId != null">
-        #{modifyUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="ismodel != null">
-        #{ismodel,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null">
-        #{version,jdbcType=INTEGER},
-      </if>
-      <if test="isUse != null">
-        #{isUse,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.pojo.WfTemp">
-    update wf_temp
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="postTimestamp != null">
-        post_timestamp = #{postTimestamp,jdbcType=TIMESTAMP},
-      </if>
-      <if test="postUserId != null">
-        post_user_id = #{postUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="modifyTimestamp != null">
-        modify_timestamp = #{modifyTimestamp,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyUserId != null">
-        modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="ismodel != null">
-        ismodel = #{ismodel,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null">
-        version = #{version,jdbcType=INTEGER},
-      </if>
-      <if test="isUse != null">
-        is_use = #{isUse,jdbcType=INTEGER},
-      </if>
-    </set>
-    where temp_id = #{tempId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.WfTemp">
+    <insert id="insertSelective" parameterType="com.t2cloud.pojo.WfTemp">
+        insert into wf_temp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="postTimestamp != null">
+                post_timestamp,
+            </if>
+            <if test="postUserId != null">
+                post_user_id,
+            </if>
+            <if test="modifyTimestamp != null">
+                modify_timestamp,
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="ismodel != null">
+                ismodel,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="isUse != null">
+                is_use,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="postTimestamp != null">
+                #{postTimestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="postUserId != null">
+                #{postUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTimestamp != null">
+                #{modifyTimestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="ismodel != null">
+                #{ismodel,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+            <if test="isUse != null">
+                #{isUse,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.pojo.WfTemp">
+        update wf_temp
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="postTimestamp != null">
+                post_timestamp = #{postTimestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="postUserId != null">
+                post_user_id = #{postUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTimestamp != null">
+                modify_timestamp = #{modifyTimestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="ismodel != null">
+                ismodel = #{ismodel,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=INTEGER},
+            </if>
+            <if test="isUse != null">
+                is_use = #{isUse,jdbcType=BIT},
+            </if>
+        </set>
+        where temp_id = #{tempId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.WfTemp">
     update wf_temp
     set name = #{name,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
@@ -155,16 +149,22 @@
       post_user_id = #{postUserId,jdbcType=VARCHAR},
       modify_timestamp = #{modifyTimestamp,jdbcType=TIMESTAMP},
       modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
-      ismodel = #{ismodel,jdbcType=INTEGER},
+      ismodel = #{ismodel,jdbcType=BIT},
       remark = #{remark,jdbcType=VARCHAR},
       version = #{version,jdbcType=INTEGER},
-      is_use = #{isUse,jdbcType=INTEGER}
+      is_use = #{isUse,jdbcType=BIT}
     where temp_id = #{tempId,jdbcType=BIGINT}
   </update>
 
-  <!--所有模版列表-->
-  <select id="list" resultMap="BaseResultMap">
-    select  <include refid="Base_Column_List"/>
-    from wf_temp
-  </select>
+    <!--所有模版列表-->
+    <select id="list" parameterType="com.t2cloud.pojo.WfTemp" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wf_temp
+        <where>
+            <if test="tempId!=null">
+                temp_id=#{tempId}
+            </if>
+        </where>
+    </select>
 </mapper>

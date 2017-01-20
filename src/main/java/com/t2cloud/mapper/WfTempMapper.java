@@ -21,5 +21,5 @@ public interface WfTempMapper {
     /**
      * 所有模版列表
      */
-    List<WfTemp> list();
+    List<WfTemp> list(WfTemp wfTemp);
 }
