@@ -3,6 +3,7 @@
 <mapper namespace="com.t2cloud.mapper.WfTempMapper">
     <resultMap id="BaseResultMap" type="com.t2cloud.pojo.WfTemp">
         <id column="temp_id" jdbcType="BIGINT" property="tempId"/>
+        <result column="type_id" javaType="BIGINT" property="typeId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="post_timestamp" jdbcType="TIMESTAMP" property="postTimestamp"/>
@@ -15,7 +16,7 @@
         <result column="is_use" jdbcType="BIT" property="isUse"/>
     </resultMap>
     <sql id="Base_Column_List">
-    temp_id, name, status, post_timestamp, post_user_id, modify_timestamp, modify_user_id,
+    temp_id,type_id, name, status, post_timestamp, post_user_id, modify_timestamp, modify_user_id,
     ismodel, remark, version, is_use
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -29,11 +30,11 @@
     where temp_id = #{tempId,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="com.t2cloud.pojo.WfTemp">
-    insert into wf_temp (name, status,
+    insert into wf_temp (type_id,name, status,
       post_timestamp, post_user_id, modify_timestamp,
       modify_user_id, ismodel, remark,
       version, is_use)
-    values (#{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+    values (#{typeId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
       #{postTimestamp,jdbcType=TIMESTAMP}, #{postUserId,jdbcType=VARCHAR}, #{modifyTimestamp,jdbcType=TIMESTAMP},
       #{modifyUserId,jdbcType=VARCHAR}, #{ismodel,jdbcType=BIT}, #{remark,jdbcType=VARCHAR},
       #{version,jdbcType=INTEGER}, #{isUse,jdbcType=BIT})
@@ -41,6 +42,10 @@
     <insert id="insertSelective" parameterType="com.t2cloud.pojo.WfTemp">
         insert into wf_temp
         <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="typeId != null">
+                typeId,
+            </if>
             <if test="name != null">
                 name,
             </if>
@@ -73,6 +78,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeId != null">
+                #{typeId,jdbcType=BIGINT},
+            </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
@@ -108,6 +116,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.t2cloud.pojo.WfTemp">
         update wf_temp
         <set>
+            <if test="typeId != null">
+                #{typeId,jdbcType=BIGINT},
+            </if>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
             </if>
@@ -143,7 +154,8 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.WfTemp">
     update wf_temp
-    set name = #{name,jdbcType=VARCHAR},
+    set  typeId=#{typeId,jdbcType=BIGINT},
+      name =#{name,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       post_timestamp = #{postTimestamp,jdbcType=TIMESTAMP},
       post_user_id = #{postUserId,jdbcType=VARCHAR},

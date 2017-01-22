@@ -30,10 +30,24 @@ public interface WorkflowInstanceService {
     /**
      * 待审批
      */
-    List<WfTaskBo> waitWorkFlowProcess(Long handleId);
+    List<WfTaskBo> waitWorkFlowProcess(String handleId);
     /**
      * 已审批
      */
     void myWorkFlowProcess(String userId);
+
+    /**
+     * 任务转接
+     * @param id
+     * @param handleId
+     * @param handleName
+     */
+    void changeApproveUser(Long id, String handleId, String handleName);
+
+
+    /**
+     * 取消审批流程
+     */
+    void cancelWorkFlow();
 
 }

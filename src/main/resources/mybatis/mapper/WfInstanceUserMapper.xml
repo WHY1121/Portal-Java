@@ -121,7 +121,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <!--根据个人查询代办任务-->
-    <select id="selectWorkFlowByHandleId" parameterType="java.lang.Long" resultType="com.t2cloud.vo.WfTaskBo">
+    <select id="selectWorkFlowByHandleId" parameterType="java.lang.String" resultType="com.t2cloud.vo.WfTaskBo">
       select
        _instance.temp_id as tempId,
        _instance.instance_id as instanceId,

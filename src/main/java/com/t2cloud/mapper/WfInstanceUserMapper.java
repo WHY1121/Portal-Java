@@ -20,7 +20,7 @@ public interface WfInstanceUserMapper {
     /**
      * 查询代办任务
      */
-    List<WfTaskBo> selectWorkFlowByHandleId(Long handleId);
+    List<WfTaskBo> selectWorkFlowByHandleId(String handleId);
 
     /**
      * 按照查询条件查找

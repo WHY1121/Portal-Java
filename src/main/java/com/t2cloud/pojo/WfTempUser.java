@@ -1,12 +1,14 @@
 package com.t2cloud.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class WfTempUser {
     private Long id;
 
     private Long stepId;
 
     private String handlerId;
-
+    @JsonProperty("name")
     private String handlerName;
 
     private Long handleRole;

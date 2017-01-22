@@ -213,6 +213,7 @@
         from wf_temp_step
         where
         temp_id=#{tempId}
+        order by order_no;
 
     </select>
 </mapper>

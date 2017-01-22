@@ -1,5 +1,7 @@
 package com.t2cloud.pojo;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.Date;
 
 public class WfInstanceStep {
@@ -16,7 +18,7 @@ public class WfInstanceStep {
 
     private Integer stepType;
 
-    private Integer isLast;
+    private Boolean isLast;
 
     private Integer status;
 
@@ -82,12 +84,12 @@ public class WfInstanceStep {
         this.stepType = stepType;
     }
 
-    public Integer getIsLast() {
+    public Boolean getLast() {
         return isLast;
     }
 
-    public void setIsLast(Integer isLast) {
-        this.isLast = isLast;
+    public void setLast(Boolean last) {
+        isLast = last;
     }
 
     public Integer getStatus() {

@@ -1,8 +1,11 @@
 package com.t2cloud.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class WfTempStep {
+    @JsonProperty("id")
     private Long stepId;
 
     private Long tempId;
@@ -13,6 +16,7 @@ public class WfTempStep {
 
     private Integer stepType;
 
+    @JsonProperty("mode")
     private Integer orderNo;
 
     private Long superId;
@@ -34,6 +38,7 @@ public class WfTempStep {
     private Long extend1;
 
     //扩展字段
+    @JsonProperty("dealuser")
     private List<WfTempUser> tempUsers;
 
     public List<WfTempUser> getTempUsers() {

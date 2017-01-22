@@ -30,11 +30,18 @@ public class WorkFlowConstance {
     public final static Integer NOT_PASS_APPROVE = 4;// 审批未通过
     public final static Integer PASS_APPROVE = 5;// 审批通过
     public final static Integer REJECT = 6;// 驳回
+    public final static Integer CANCEL = 7;// 作废
 
 
     // 审批流程步骤状态
     public final static Integer PASS = 1;// 通过
-    public final static Integer NOT_PASS = 2;// 不通过
+    public final static Integer NOT_PASS = 0;// 不通过
+
+
+    //流程模版状态
+    public final static Integer NEWCREATE = 0;// 新建
+    public final static Integer DEPLOY = 1;// 发布
+    public final static Integer EXPIRE = 2;// 失效
 
 
     public final static Integer WORKFLOW_STATUS_CHANGED = 1;// 审批流程状态已经改变
@@ -42,10 +49,5 @@ public class WorkFlowConstance {
     public final static Integer NEW_CHANGED = 3;// 审批流程状态已经改变
     public final static String WORKFLOW_INFO = "WORKFLOW_INFO";// 改变的审批流程
     public final static String WORKFLOW_PROCESS = "WORKFLOW_PROCESS";// 改变的审批节点
-
-
-    public final static String CURRENTSTEP = "currentStep";//当前步骤
-    public final static String NEXTSTEP = "nextStep";//下一步骤
-    public final static Integer STEP = 1;//第一步
     /* ===============全局变量结束=============== */
 }

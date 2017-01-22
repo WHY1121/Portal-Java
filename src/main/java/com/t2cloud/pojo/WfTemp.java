@@ -1,10 +1,15 @@
 package com.t2cloud.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.List;
 
 public class WfTemp {
+    @JsonProperty("id")
     private Long tempId;
+
+    private Long typeId;
 
     private String name;
 
@@ -24,10 +29,22 @@ public class WfTemp {
 
     private Integer version;
 
+    @JsonProperty("enabled")
     private Boolean isUse;
 
-    //扩展字段
+    //=============================================扩展字段=====================================
+    @JsonProperty("steps")
     private List<WfTempStep> wfTempStepList;
+
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public List<WfTempStep> getWfTempStepList() {
         return wfTempStepList;
@@ -43,6 +60,14 @@ public class WfTemp {
 
     public void setTempId(Long tempId) {
         this.tempId = tempId;
+    }
+
+    public Long getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 
     public String getName() {

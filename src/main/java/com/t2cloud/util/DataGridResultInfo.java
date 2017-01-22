@@ -8,8 +8,6 @@ import java.util.Collection;
  *
  */
 public class DataGridResultInfo {
-	
-	public DataGridResultInfo(){}
 
 	//结果集
 	private Collection results;

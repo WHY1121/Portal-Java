@@ -3,6 +3,7 @@ package com.t2cloud.service;
 import com.t2cloud.pojo.WfTemp;
 import com.t2cloud.pojo.WfTempUser;
 import com.t2cloud.pojo.WfTempStep;
+import com.t2cloud.vo.WorkFlowForCreat;
 
 import java.util.List;
 
@@ -17,18 +18,14 @@ public interface WorkflowDefinationService {
     /**
      *   定义模版
      */
-    void insertWorkFlow(WfTemp wfTemp);
+    void insertWorkFlow(WorkFlowForCreat flowForCreat);
 
-    /**
-     * 定义步骤
-     */
-    void insertWorkFlowStep(Long workFlowId, WfTempStep wfTempStep,WfTempUser wfTempUser);
 
     List<WfTemp> list();
 
-    void update(WfTemp wfTemp,WfTempStep wfTempStep,WfTempUser wfTempUser) throws Exception;
+    void update(Long id,WorkFlowForCreat flowForCreat);
 
-    void delete(Long tempId);
+    void delete(Long[] tempIds);
 
     /**
      * 查询模版详情
@@ -36,6 +33,11 @@ public interface WorkflowDefinationService {
      * @return
      */
     WfTemp show(Long tempId);
+
+    /**
+     * 修改流程状态
+     */
+    void updateStatus(Long id,boolean enabled);
 
 
 }

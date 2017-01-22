@@ -2,9 +2,9 @@ package com.t2cloud.controller;
 
 import com.t2cloud.pojo.WfTemp;
 import com.t2cloud.service.WorkflowDefinationService;
+import com.t2cloud.vo.WorkFlowForCreat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import java.util.List;
  * 流程定义控制器
  */
 @RestController
+@RequestMapping("/workflows")
 public class WorkflowDefinationController {
     @Autowired
     private WorkflowDefinationService workflowDefinationService;
@@ -25,21 +26,19 @@ public class WorkflowDefinationController {
      *
      * @return
      */
-    @RequestMapping("/saveWorkFlow")
-    public void saveWorkFlow(WfTemp wfTemp) {
-        workflowDefinationService.insertWorkFlow(wfTemp);
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public void create(@RequestParam WorkFlowForCreat flowForCreat) {
+        workflowDefinationService.insertWorkFlow(flowForCreat);
     }
 
     /**
-     * 流程修改（不是model）
+     * 流程修改
      *
      * @return
      */
-    @RequestMapping("/update")
-    public String update() {
-
-
-        return "hello world";
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public void update(@PathVariable(value = "id") Long id, @RequestParam WorkFlowForCreat flowForCreat) {
+        workflowDefinationService.update(id, flowForCreat);
     }
 
     /**
@@ -47,11 +46,9 @@ public class WorkflowDefinationController {
      *
      * @return
      */
-    @RequestMapping("/delete")
-    public String delete() {
-
-
-        return "hello world";
+    @RequestMapping(value = "/deleteMulti", method = RequestMethod.POST)
+    public void delete(@RequestParam(value = "tempIds[]") Long[] tempIds) {
+        workflowDefinationService.delete(tempIds);
     }
 
     /**
@@ -59,10 +56,18 @@ public class WorkflowDefinationController {
      *
      * @return
      */
-    @RequestMapping("/list")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<WfTemp> list() {
-
         List<WfTemp> list = workflowDefinationService.list();
         return list;
     }
+
+    /**
+     * 流程启用和禁用
+     */
+    @RequestMapping(value = "/enable/{id}", method = RequestMethod.PUT)
+    public void updateStatus(@PathVariable(value = "id") Long id, boolean enable) {
+        workflowDefinationService.updateStatus(id, enable);
+    }
+
 }
