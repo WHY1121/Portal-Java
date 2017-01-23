@@ -3,7 +3,7 @@
 <mapper namespace="com.t2cloud.mapper.WfTempMapper">
     <resultMap id="BaseResultMap" type="com.t2cloud.pojo.WfTemp">
         <id column="temp_id" jdbcType="BIGINT" property="tempId"/>
-        <result column="type_id" javaType="BIGINT" property="typeId"/>
+        <result column="type_id" jdbcType="BIGINT" property="typeId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="post_timestamp" jdbcType="TIMESTAMP" property="postTimestamp"/>
@@ -44,7 +44,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
 
             <if test="typeId != null">
-                typeId,
+                type_id,
             </if>
             <if test="name != null">
                 name,
@@ -117,7 +117,7 @@
         update wf_temp
         <set>
             <if test="typeId != null">
-                #{typeId,jdbcType=BIGINT},
+                type_id = #{typeId,jdbcType=BIGINT},
             </if>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
@@ -154,8 +154,8 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.t2cloud.pojo.WfTemp">
     update wf_temp
-    set  typeId=#{typeId,jdbcType=BIGINT},
-      name =#{name,jdbcType=VARCHAR},
+    set type_id = #{typeId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       post_timestamp = #{postTimestamp,jdbcType=TIMESTAMP},
       post_user_id = #{postUserId,jdbcType=VARCHAR},
@@ -174,8 +174,11 @@
         <include refid="Base_Column_List"/>
         from wf_temp
         <where>
-            <if test="tempId!=null">
+            <if test="tempId != null">
                 temp_id=#{tempId}
+            </if>
+            <if test="ismodel != null">
+                is_model=#{ismodel}
             </if>
         </where>
     </select>

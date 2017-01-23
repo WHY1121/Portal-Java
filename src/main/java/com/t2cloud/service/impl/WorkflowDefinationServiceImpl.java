@@ -198,7 +198,7 @@ public class WorkflowDefinationServiceImpl implements WorkflowDefinationService 
      * @param enabled
      */
     @Override
-    public void updateStatus(Long id,boolean enabled) {
+    public void updateStatus(Long id, boolean enabled) {
         WfTemp wfTemp = new WfTemp();
         wfTemp.setTempId(id);
         wfTemp.setUse(enabled);
